@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "command $@"
+export DB_CONNECT_STRING=utp/utp@sebora12/sebora12
+
+while [[ $# > 0 ]]
+do
+key="$1"
+
+case $key in
+    --dbid)
+echo "--dbid : $2"
+    export DB_CONNECT_STRING="$2"
+    shift # past argument
+    ;;
+
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+echo "DB_CONNECT_STRING : ${DB_CONNECT_STRING}"
+
+red=`echo -e '\033[1;31m'`
+green=`echo -e '\033[1;32m'`
+normal=`echo -e '\e[1;39m'`
+
+
+run_tests() {
+	make test | sed "s/^FAILURE/$red&$normal/; s/^SUCCESS/$green&$normal/; s/^>\\s\\s\\s*S.*/$green&$normal/; s/^>\\s\\s\\s*F.*/$red&$normal/"
+}
+
+
+while true
+do 
+	run_tests
+  	inotifywait -r -e modify . 
+done
+
