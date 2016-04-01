@@ -2,10 +2,10 @@
 
 ## Usage ##
 
-The container may be used as a simple sql\*plus client
+The container may be used as a simple sql\*plus client:  
 `docker run -it --rm `*`IMAGE`*` bash `
 
-It can also be used to facilitate pl/SQL TDD :
+It can also be used to facilitate pl/SQL TDD:  
 `docker run -it -v $(pwd):/sql-src --rm `*`IMAGE`*` watch `*`DB_CONNECT_STRING`* 
 
 ## Pre-requisites ##
