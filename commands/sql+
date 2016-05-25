@@ -1,0 +1,26 @@
+#!/bin/bash
+
+echo "command $@"
+export DB_CONNECT_STRING=utp/utp@sebora12/sebora12
+
+while [[ $# > 0 ]]
+do
+key="$1"
+
+case $key in
+    --dbid)
+echo "--dbid : $2"
+    export DB_CONNECT_STRING="$2"
+    shift # past argument
+    ;;
+
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
+echo "DB_CONNECT_STRING : ${DB_CONNECT_STRING}"
+
+rlwrap sqlplus ${DB_CONNECT_STRING}
