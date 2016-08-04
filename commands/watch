@@ -1,16 +1,15 @@
 #!/bin/bash
 
-echo "command $@"
-export DB_CONNECT_STRING=utp/utp@sebora12/sebora12
+#echo "options : $@"
 
 while [[ $# > 0 ]]
 do
 key="$1"
-
+shift
 case $key in
     --dbid)
-echo "--dbid : $2"
-    export DB_CONNECT_STRING="$2"
+    #echo "--dbid : $2"
+    export DB_CONNECT_STRING="$@"
     shift # past argument
     ;;
 
@@ -18,7 +17,7 @@ echo "--dbid : $2"
             # unknown option
     ;;
 esac
-shift # past argument or value
+#shift # past argument or value
 done
 
 echo "DB_CONNECT_STRING : ${DB_CONNECT_STRING}"
